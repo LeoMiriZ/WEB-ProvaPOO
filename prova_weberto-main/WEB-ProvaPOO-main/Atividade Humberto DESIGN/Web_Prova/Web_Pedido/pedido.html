@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./main.js"></script>
+    <script>
+
+        document.onload = listPedidos();
+
+
+
+    </script>
+    <title>ProvaPOO - Pedido</title>
+
+    <style>
+        .tit {
+
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 40px;
+            color: black;
+            padding-top: 15px;
+
+
+        }
+
+        .btn {
+
+            margin-left: 5px;
+
+        }
+
+        .botao {
+
+            margin-left: 10px;
+            margin-bottom: 10px;
+            color: red;
+            font-weight: bold;
+            font-size: large;
+
+        }
+
+        .feliz {
+
+            font-size: 30px;
+
+        }
+
+        .vasco {
+
+            margin-left: 40px;
+            margin-right: 40px;
+            padding-left: 50px;
+            margin-top: 5px;
+
+        }
+
+        .container-fluid {
+
+            padding-right: 1000px;
+            margin-left: 40px;
+            margin-right: 40px;
+
+
+        }
+
+        .botao-novo {
+            color: black;
+            background-color: honeydew;
+            border-radius: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-right: 20px;
+        }
+
+        .botao-criar {
+            color: black;
+            background-color: honeydew;
+            border-radius: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-right: 20px;
+        }
+
+        .botao-listarp {
+            color: black;
+            background-color: honeydew;
+            border-radius: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-right: 20px;
+            margin-bottom: 50px;
+            margin-left: 705px;
+            font-size: 30px;
+        }
+
+        .botao-atualizar {
+            color: black;
+            background-color: honeydew;
+            border-radius: 10px;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-top: 10px;
+        }
+
+        .limitador {
+            max-width: 1680px;
+            margin: 0px auto;
+            background-color: antiquewhite;
+            border-radius: 50px;
+        }
+
+        .form-floating {
+            margin-left: 40px;
+            margin-right: 40px;
+            padding-right: 60px;
+        }
+
+        .botao-pesquisar {
+            color: black;
+            background-color: honeydew;
+            margin-left: 580px;
+            margin-bottom: 30px;
+            font-size: 25px;
+            border-radius: 15px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        .tabela {
+            margin-right: 70px;
+            padding-bottom: 50px;
+        }
+
+        .botoes {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .botao-pesquisar2{
+
+            background-color: rgb(12, 179, 245);
+            font-size: 25px;
+            border-radius: 15px;
+            padding-left: 20px;
+            padding-right: 20px;
+
+        }
+
+        .lo{
+
+            text-align: center;
+            margin-bottom: 60px;
+            color: white;
+            background-color: black;
+            padding-top: 15px;
+            padding-bottom: 15px;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <div class="limitador">
+
+        <div class="tit">
+
+            <h1 class="titulopag">Pedidos</h1>
+
+        </div>
+
+        <div class="container-fluid p-2">
+            <div class="form-floating">
+                <input type="text" class="form-control autocomplete" id="filter" placeholder="Procurar" name="filter">
+                <label for="filter" class="form-label">Buscar pedido</label>
+            </div>
+        </div>
+
+        <p class="vasco">(OBS: Por favor inserir o <b>NÚMERO</b> do pedido de acordo com a lista abaixo) 🍽️ </p>
+        <p class="vasco">(Tabela de itens do pedido pesquisado aparecerá no final da tela) </p>
+
+        <br>
+
+        <button onclick="filterPedidos()" type="button" class="botao-pesquisar"><b>Pesquisar pedido</b></button>
+        <button onclick="listaritensdeumpedido()" type="button" class="botao-pesquisar2"><b>Pesquisar itens do pedido</b></button>
+
+
+        <br>
+
+        <br>
+        <div class="container-fluid">
+            <div class="form">
+                <div class="row">
+
+                </div>
+                <br>
+
+                <br>
+            </div>
+
+            <br>
+
+
+            <button onclick="window.open('main.html')" type="button" class="botao-listarp"><b>Retornar ao
+                    menu</b></button>
+            <button onclick="window.open('itemPedido.html')" type="button" class="botao-listarp"><b>Painel de cozinha</b></button>
+            <br>
+            <button onclick="limparPedido()" type="button" class="botao-atualizar"><b>Atualizar</b></button>
+
+        </div>
+        <br>
+        <div class="tabela">
+            <div class="container-fluid p-2">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Código do Pedido #</th>
+                            <th scope="col">Número do Pedido</th>
+                            <th scope="col">Total (R$)</th>
+                            <th scope="col">STATUS</th>
+                            <th scope="col">Excluir</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="lista">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <h1 class="lo">
+
+            Itens do pedido pesquisado
+
+        </h1>
+
+        <div class="tabela">
+            <div class="container-fluid p-2">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Código do item #</th>
+                            <th scope="col">Número do Pedido</th>
+                            <th scope="col">Item</th>
+                            <th scope="col">Preço (R$)</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="listas">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        </limitador>
+</body>
+
+
+</html>
